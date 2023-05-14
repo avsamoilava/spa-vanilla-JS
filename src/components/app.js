@@ -1,5 +1,6 @@
 import Controller from "./controller";
 import View from "./view";
+import { router } from './router';
 
 export default class App {
   constructor(){
@@ -7,7 +8,11 @@ export default class App {
     this.view = new View();
   }
   start(){
-    this.view.render();
+    router
+    .on('/', () => this.view.render('/'))
+    .on('/table', () => this.view.render('/table'))
+    .on('/map', () => this.view.render('/map'))
+    .resolve();
   }
 }
 

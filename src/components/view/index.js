@@ -1,9 +1,25 @@
-import { el, setChildren } from "redom";
+import { el, setChildren } from 'redom';
+import { MapPage } from './pages/map';
+import { TablePage } from './pages/table';
+import { StartPage } from './pages/start';
 
 export default class View {
-  render(){
-    const root = document.querySelector('main');
-    const title = el('h1', 'Hello');
-    setChildren(root, title);
+  map = new MapPage();
+  table = new TablePage();
+  start = new StartPage();
+  pages = {
+    '/': this.start,
+    '/table': this.table,
+    '/map': this.map
+  }
+
+  render(path){ 
+    const root = document.querySelector('#root');
+    console.log(this.pages[path]);
+    const elem = this.pages[path].render();
+    console.log(elem);
+    
+    console.log(elem);
+    setChildren(root, [elem]);
   }
 }
